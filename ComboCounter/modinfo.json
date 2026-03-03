@@ -1,0 +1,91 @@
+{
+  "name": "ComboCounter",
+  "author": "Flaze",
+  "description": "Tracks your combat combos and displays consecutive hits below the crosshair. Shows hit count, kill count, and provides visual feedback with smooth animations. Fully customizable via Extra Settings API.",
+  "version": "1.0",
+  "license": "GNU AGPLv3",
+  "icon": "icon.png",
+  "banner": "banner.png",
+  "gameVersion": "1.0",
+  "requiredByAllPlayers": false,
+  "updateUrl": "",
+  "isModPermanent": false,
+  "excludedFiles": [],
+  "modSettings": [
+    {
+      "type": "section",
+      "name": "comboSection",
+      "text": "Combo Counter Settings"
+    },
+    {
+      "type": "checkbox",
+      "name": "showComboCounter",
+      "text": "Show Combo Counter",
+      "access": "both",
+      "default": true,
+      "section": "comboSection",
+      "tooltip": "Display combo counter when landing consecutive hits"
+    },
+    {
+      "type": "slider",
+      "name": "comboResetTime",
+      "text": "Combo Reset Time (seconds)",
+      "access": "both",
+      "default": 5,
+      "range": {
+        "min": 1,
+        "max": 10,
+        "decimals": 0
+      },
+      "section": "comboSection",
+      "tooltip": "Time before combo resets after last hit"
+    },
+    {
+      "type": "section",
+      "name": "colorSection",
+      "text": "Color Settings"
+    },
+    {
+      "type": "slider",
+      "name": "comboColorR",
+      "text": "Color: Red",
+      "access": "both",
+      "default": 0.95,
+      "range": {
+        "min": 0.0,
+        "max": 1.0,
+        "decimals": 2
+      },
+      "section": "colorSection",
+      "tooltip": "Red color component (0.0 - 1.0)"
+    },
+    {
+      "type": "slider",
+      "name": "comboColorG",
+      "text": "Color: Green",
+      "access": "both",
+      "default": 0.89,
+      "range": {
+        "min": 0.0,
+        "max": 1.0,
+        "decimals": 2
+      },
+      "section": "colorSection",
+      "tooltip": "Green color component (0.0 - 1.0)"
+    },
+    {
+      "type": "slider",
+      "name": "comboColorB",
+      "text": "Color: Blue",
+      "access": "both",
+      "default": 0.77,
+      "range": {
+        "min": 0.0,
+        "max": 1.0,
+        "decimals": 2
+      },
+      "section": "colorSection",
+      "tooltip": "Blue color component (0.0 - 1.0)"
+    }
+  ]
+}
