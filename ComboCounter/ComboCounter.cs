@@ -56,9 +56,6 @@ public class ComboCounter : Mod
     {
         Instance = this;
         
-        // Notify HitMarker mod that ComboCounter is loaded
-        NotifyHitMarkerMod();
-        
         try
         {
             harmony = new Harmony("com.combocounter.mod");
@@ -266,61 +263,6 @@ public class ComboCounter : Mod
     
     [MethodImpl(MethodImplOptions.NoInlining)]
     public bool GetBoolFromAPI(string SettingName, bool DefaultValue) { return DefaultValue; }
-    
-    /// <summary>
-    /// Notify HitMarker mod that ComboCounter is loaded
-    /// This allows HitMarker to disable its built-in combo counter
-    /// </summary>
-    private void NotifyHitMarkerMod()
-    {
-        try
-        {
-            // Find HitMarker mod instance
-            var loadedMods = ModManagerPage.modList;
-            if (loadedMods != null)
-            {
-                foreach (var mod in loadedMods)
-                {
-                    if (mod != null && mod.jsonmodinfo != null && mod.jsonmodinfo.name == "HitMarker")
-                    {
-                        // Use reflection to get the mod instance and call NotifyComboCounterLoaded method
-                        var modType = mod.GetType();
-                        var instanceField = modType.GetField("modInstance", 
-                            System.Reflection.BindingFlags.Public | 
-                            System.Reflection.BindingFlags.NonPublic | 
-                            System.Reflection.BindingFlags.Instance);
-                        
-                        if (instanceField == null)
-                        {
-                            // Try alternative field names
-                            instanceField = modType.GetField("instance", 
-                                System.Reflection.BindingFlags.Public | 
-                                System.Reflection.BindingFlags.NonPublic | 
-                                System.Reflection.BindingFlags.Instance);
-                        }
-                        
-                        if (instanceField != null)
-                        {
-                            var modInstance = instanceField.GetValue(mod);
-                            if (modInstance != null)
-                            {
-                                var method = modInstance.GetType().GetMethod("NotifyComboCounterLoaded");
-                                if (method != null)
-                                {
-                                    method.Invoke(modInstance, null);
-                                }
-                            }
-                        }
-                        break;
-                    }
-                }
-            }
-        }
-        catch (System.Exception ex)
-        {
-            Debug.LogWarning($"[ComboCounter] Could not notify HitMarker mod: {ex.Message}");
-        }
-    }
     
     public void OnModUnload()
     {
